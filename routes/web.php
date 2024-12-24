@@ -18,7 +18,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::group(['controller' => \App\Http\Controllers\AppController::class], function (){
+Route::group(['controller' => \App\Http\Controllers\AppController::class], function () {
     Route::get('/about', 'about')->name('about');
 });
 

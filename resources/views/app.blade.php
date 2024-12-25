@@ -17,5 +17,9 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+        
+        <script>
+            window.fallbackLocale = "{{ config('app.fallback_locale') }}"
+        </script>
     </body>
 </html>

@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { resolve } from 'path';
+import laravelTranslator from "laravel-translator/vite";
 
 export default defineConfig({
     plugins: [
@@ -10,7 +11,8 @@ export default defineConfig({
             ssr: 'resources/js/ssr.js',
             refresh: true,
         }),
-        svelte({})
+        svelte({}),
+        laravelTranslator()
     ],
     resolve: {
     alias: {

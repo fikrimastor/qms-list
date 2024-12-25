@@ -4,6 +4,7 @@
 	import InputLabel from "@/Components/Label.svelte";
 	import InputError from "@/Components/Error.svelte";
 	import { page, Link, useForm, router } from "@inertiajs/svelte";
+	import {__} from "laravel-translator";
 	let err = {};
 	export let errors = {};
 
@@ -100,7 +101,7 @@
 		{/if}
 
 		<div class="flex items-center gap-4">
-			<TransitionButton disabled={$form.processing} buttonLabel="Save" visible={$form.recentlySuccessful} text="Saved." />
+			<TransitionButton disabled={$form.processing} buttonLabel="Save" visible={$form.recentlySuccessful} text="{ __('auth.profile_updated') }" />
 		</div>
 	</form>
 </section>

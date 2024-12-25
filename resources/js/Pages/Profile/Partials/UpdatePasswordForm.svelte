@@ -1,4 +1,5 @@
 <script>
+	import {__} from 'laravel-translator';
 	import TransitionButton from "@/Components/TransitionButton.svelte";
 	import TextInput from "@/Components/Input.svelte";
 	import InputLabel from "@/Components/Label.svelte";
@@ -8,8 +9,6 @@
 	export let errors = {};
 
 	export let
-			status,
-			statusMessage = "{{ __('passwords.updated') }}",
 			classes = "",
 			passwordInput,
 			confirmPasswordInput,
@@ -111,7 +110,7 @@
 		</div>
 
 		<div class="flex items-center gap-4">
-			<TransitionButton disabled={$form.processing} buttonLabel="Save" visible={$form.recentlySuccessful} text="{ statusMessage }." />
+			<TransitionButton disabled={$form.processing} buttonLabel="Save" visible={$form.recentlySuccessful} text="{ __('passwords.updated') }" />
 		</div>
 	</form>
 </section>

@@ -5,6 +5,7 @@
 	import BreezeNavLink from "@/Components/NavLink.svelte";
 	import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink.svelte";
 	import { inertia, page, Link } from "@inertiajs/svelte";
+	import { __ } from 'laravel-translator';
 	let showingNavigationDropdown = false;
 	export let user = $page.props.auth.user;
 </script>
@@ -40,6 +41,12 @@
 									active={$page.component === "About"}
 							>
 								About
+							</BreezeNavLink>
+							<BreezeNavLink
+									href="{ route('entity.create') }"
+									active={$page.component === "Entity/CreateEntity"}
+							>
+								{ __('entity.entities') }
 							</BreezeNavLink>
 						</div>
 					</div>
@@ -150,6 +157,12 @@
 							active={$page.component === "About"}
 					>
 						About
+					</BreezeResponsiveNavLink>
+					<BreezeResponsiveNavLink
+							href="{ route('entity.create') }"
+							active={$page.component === "Entity/CreateEntity"}
+					>
+						{ __('entity.entities') }
 					</BreezeResponsiveNavLink>
 				</div>
 

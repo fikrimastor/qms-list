@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Actions\Users\UserCreateNewEntity;
-use App\Contracts\Entities\CreateNewEntityContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;

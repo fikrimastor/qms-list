@@ -21,8 +21,6 @@ class Entity extends Model
 
     /**
      * Get the user that owns the entity.
-     *
-     * @return BelongsToMany
      */
     public function users(): BelongsToMany
     {

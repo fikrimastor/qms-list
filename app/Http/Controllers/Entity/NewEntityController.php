@@ -14,9 +14,6 @@ class NewEntityController extends Controller
 {
     /**
      * Display the new entity view.
-     *
-     * @param Request $request
-     * @return Response
      */
     public function create(Request $request): Response
     {

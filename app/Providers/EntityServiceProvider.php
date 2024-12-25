@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
-use App\Actions\Users\{AssignUserToEntity, UserCreateNewEntity, UpdateEntityInformation};
-use App\Contracts\Entities\{AssignUserToEntityContract, CreateNewEntityContract, UpdateEntityContract};
+use App\Actions\Users\AssignUserToEntity;
+use App\Actions\Users\UpdateEntityInformation;
+use App\Actions\Users\UserCreateNewEntity;
+use App\Contracts\Entities\AssignUserToEntityContract;
+use App\Contracts\Entities\CreateNewEntityContract;
+use App\Contracts\Entities\UpdateEntityContract;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,8 +31,6 @@ class EntityServiceProvider extends ServiceProvider implements DeferrableProvide
 
     /**
      * All the container singletons that should be registered.
-     *
-     * @var array
      */
     public array $singletons = [
         CreateNewEntityContract::class => UserCreateNewEntity::class,

@@ -7,7 +7,6 @@ use App\Models\Entity;
 
 class UpdateEntityInformation implements UpdateEntityContract
 {
-
     public function execute(int $entityId, array $entityData): bool
     {
         // TODO: Implement execute() method.

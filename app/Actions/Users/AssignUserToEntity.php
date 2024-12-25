@@ -7,7 +7,6 @@ use App\Models\Entity;
 
 class AssignUserToEntity implements AssignUserToEntityContract
 {
-
     public function execute(int $entityId, int $userId): bool
     {
         // TODO: Implement execute() method.

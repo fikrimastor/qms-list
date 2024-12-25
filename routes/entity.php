@@ -8,24 +8,24 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'middleware' => ['auth:web', 'verified'],
     'prefix' => 'entity',
-    'as' => 'entity.'
+    'as' => 'entity.',
 ], function () {
     Route::group([
-        'controller' => NewEntityController::class
+        'controller' => NewEntityController::class,
     ], function () {
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
     });
 
     Route::group([
-        'controller' => EntityController::class
+        'controller' => EntityController::class,
     ], function () {
         Route::get('edit', 'edit')->name('edit');
         Route::patch('update', 'update')->name('update');
     });
 
     Route::group([
-        'controller' => EntityAssignmentController::class
+        'controller' => EntityAssignmentController::class,
     ], function () {
         Route::get('assign', 'create')->name('assign');
     });

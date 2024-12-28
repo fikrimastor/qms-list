@@ -16,7 +16,6 @@
 		user = $page.props.auth.user,
 		showingNavigationDropdown = false,
 		confirmingEntityCreation = false,
-		entities = $page.props.entities,
 		status;
 
 	const form = useForm({
@@ -36,8 +35,8 @@
 </script>
 
 <div>
-	<div class="min-h-screen bg-gray-100">
-		<nav class="bg-white border-b border-gray-100">
+	<div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+		<nav class="bg-white border-b border-gray-100 dark:bg-gray-800 dark:border-gray-300">
 			<!-- Primary Navigation Menu -->
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="flex justify-between h-16">
@@ -46,7 +45,7 @@
 						<div class="shrink-0 flex items-center">
 							<Link href="{ route('dashboard') }">
 								<BreezeApplicationLogo
-										class="block h-9 w-auto"
+										class="block h-9 w-auto fill-current dark:text-white"
 								/>
 							</Link>
 						</div>
@@ -105,8 +104,8 @@
                                     </button>
                                 </span>
 								<div slot="content">
-									{#if entities.length > 0}
-										{#each entities as entity}
+									{#if $page.props.entities.length > 0}
+										{#each $page.props.entities as entity}
 											<BreezeDropdownLink
 													href="{ route('entity.switch', { entity: entity.id }) }"
 													method="patch"
@@ -271,51 +270,10 @@
 			</div>
 		</nav>
 
-		<Modal show="{confirmingEntityCreation}" onClose="{ closeModal }">
-			<div class="p-6">
-				<h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-					Are you sure you want to delete your account?
-				</h2>
-
-				<p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-					Once your account is deleted, all of its resources and data will
-					be permanently deleted. Please enter your password to confirm
-					you would like to permanently delete your account.
-				</p>
-
-				<div class="mt-6">
-					<InputLabel for="password" value="Password" classes="sr-only" />
-
-					<TextInput
-							id="password"
-							bind:value={$form.password}
-							type="password"
-							classes="mt-1 block w-3/4"
-							placeholder="Password"
-							on:keyup.enter={deleteUser}
-					/>
-
-					<InputError message={$form.errors.password} />
-				</div>
-
-				<div class="mt-6 flex justify-end">
-					<SecondaryButton onClick={closeModal}>Cancel</SecondaryButton>
-
-					<DangerButton
-							disabled={$form.processing}
-							onClick={deleteUser}
-							classes="ml-3"
-					>
-						Delete Account
-					</DangerButton>
-				</div>
-			</div>
-		</Modal>
-
 		<!-- Page Heading -->
 		{#if $$slots.header}
 			<!-- content here -->
-			<header class="bg-white shadow">
+			<header class="bg-white shadow dark:bg-gray-800">
 				<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
 					<slot name="header" />
 				</div>

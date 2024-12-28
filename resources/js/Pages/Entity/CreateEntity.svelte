@@ -29,7 +29,7 @@
 </svelte:head>
 
 <BreezeAuthenticatedLayout>
-	<h2 class="font-semibold text-xl text-gray-800 leading-tight" slot="header">
+	<h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight" slot="header">
 		{ __('entity.entities') }
 	</h2>
 

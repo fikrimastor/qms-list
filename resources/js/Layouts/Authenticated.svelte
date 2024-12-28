@@ -6,12 +6,6 @@
 	import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink.svelte";
 	import { inertia, page, Link, useForm } from "@inertiajs/svelte";
 	import { __ } from 'laravel-translator';
-	import SecondaryButton from "@/Components/SecondaryButton.svelte";
-	import InputError from "@/Components/Error.svelte";
-	import DangerButton from "@/Components/DangerButton.svelte";
-	import TextInput from "@/Components/Input.svelte";
-	import Modal from "@/Components/Modal.svelte";
-	import InputLabel from "@/Components/Label.svelte";
 	export let
 		user = $page.props.auth.user,
 		showingNavigationDropdown = false,

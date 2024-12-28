@@ -38,11 +38,11 @@ class EntityController extends Controller
         $user->current_entity_id = $entity->id;
         $user->save();
 
-//        $request->session()->previousUrl();
+        //        $request->session()->previousUrl();
 
-//        return redirect($request->session()->previousUrl())->with('status', 'Current entity updated.');
+        //        return redirect($request->session()->previousUrl())->with('status', 'Current entity updated.');
 
         return back()->with('status', 'Current entity updated.');
-//        return Inertia::location($request->session()->previousUrl());
+        //        return Inertia::location($request->session()->previousUrl());
     }
 }

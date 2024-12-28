@@ -49,6 +49,8 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    protected $with = ['currentEntity', 'entities'];
+
     /**
      * Get the user's entities.
      *
@@ -57,5 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function entities(): BelongsToMany
     {
         return $this->belongsToMany(Entity::class, 'user_entity', 'user_id', 'entity_id');
+    }
+
+    public function currentEntity()
+    {
+        return $this->belongsTo(Entity::class, 'current_entity_id');
     }
 }

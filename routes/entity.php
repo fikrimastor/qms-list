@@ -22,6 +22,7 @@ Route::group([
     ], function () {
         Route::get('edit', 'edit')->name('edit');
         Route::patch('update', 'update')->name('update');
+        Route::patch('switch/{entity}', 'switch')->name('switch');
     });
 
     Route::group([

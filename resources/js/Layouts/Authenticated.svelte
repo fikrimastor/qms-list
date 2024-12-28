@@ -4,10 +4,35 @@
 	import BreezeDropdownLink from "@/Components/DropdownLink.svelte";
 	import BreezeNavLink from "@/Components/NavLink.svelte";
 	import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink.svelte";
-	import { inertia, page, Link } from "@inertiajs/svelte";
+	import { inertia, page, Link, useForm } from "@inertiajs/svelte";
 	import { __ } from 'laravel-translator';
-	let showingNavigationDropdown = false;
-	export let user = $page.props.auth.user;
+	import SecondaryButton from "@/Components/SecondaryButton.svelte";
+	import InputError from "@/Components/Error.svelte";
+	import DangerButton from "@/Components/DangerButton.svelte";
+	import TextInput from "@/Components/Input.svelte";
+	import Modal from "@/Components/Modal.svelte";
+	import InputLabel from "@/Components/Label.svelte";
+	export let
+		user = $page.props.auth.user,
+		showingNavigationDropdown = false,
+		confirmingEntityCreation = false,
+		entities = $page.props.entities,
+		status;
+
+	const form = useForm({
+		password: '',
+	});
+
+	function closeModal() {
+		confirmingEntityCreation = false;
+		$form.clearErrors();
+		$form.reset();
+	}
+
+	function switchEntity(e) {
+		e.preventDefault();
+		$form.patch(route('entity.switch', { entity: e.id }));
+	}
 </script>
 
 <div>
@@ -42,16 +67,70 @@
 							>
 								About
 							</BreezeNavLink>
-							<BreezeNavLink
-									href="{ route('entity.create') }"
-									active={$page.component === "Entity/CreateEntity"}
-							>
-								{ __('entity.entities') }
-							</BreezeNavLink>
 						</div>
 					</div>
 
 					<div class="hidden sm:flex sm:items-center sm:ml-6">
+						<!-- Entity Dropdown -->
+						<div class="ml-3 relative">
+							<BreezeDropdown
+									class="w-48 origin-top-right right-0"
+							>
+                                <span
+		                                class="inline-flex rounded-md"
+		                                slot="trigger"
+                                >
+                                    <button
+		                                    type="button"
+		                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                    >
+	                                    {#if $page.props.currentEntity !== null}
+		                                    { $page.props.currentEntity.name }
+	                                    {:else}
+		                                    Select Entity
+	                                    {/if}
+
+	                                    <svg
+			                                    class="ml-2 -mr-0.5 h-4 w-4"
+			                                    xmlns="http://www.w3.org/2000/svg"
+			                                    viewBox="0 0 20 20"
+			                                    fill="currentColor"
+	                                    >
+                                            <path
+		                                            fill-rule="evenodd"
+		                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+		                                            clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                    </button>
+                                </span>
+								<div slot="content">
+									{#if entities.length > 0}
+										{#each entities as entity}
+											<BreezeDropdownLink
+													href="{ route('entity.switch', { entity: entity.id }) }"
+													method="patch"
+													as="button"
+													type="button"
+											>
+												{ entity.name }
+											</BreezeDropdownLink>
+										{/each}
+									{:else}
+										No Entity Available
+									{/if}
+
+									<BreezeDropdownLink
+											href="{ route('entity.create') }"
+											method="get"
+											as="button"
+											type="button"
+									>
+										{ __('entity.create_entity') }
+									</BreezeDropdownLink>
+								</div>
+							</BreezeDropdown>
+						</div>
 						<!-- Settings Dropdown -->
 						<div class="ml-3 relative">
 							<BreezeDropdown
@@ -158,12 +237,6 @@
 					>
 						About
 					</BreezeResponsiveNavLink>
-					<BreezeResponsiveNavLink
-							href="{ route('entity.create') }"
-							active={$page.component === "Entity/CreateEntity"}
-					>
-						{ __('entity.entities') }
-					</BreezeResponsiveNavLink>
 				</div>
 
 				<!-- Responsive Settings Options -->
@@ -197,6 +270,47 @@
 				</div>
 			</div>
 		</nav>
+
+		<Modal show="{confirmingEntityCreation}" onClose="{ closeModal }">
+			<div class="p-6">
+				<h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+					Are you sure you want to delete your account?
+				</h2>
+
+				<p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+					Once your account is deleted, all of its resources and data will
+					be permanently deleted. Please enter your password to confirm
+					you would like to permanently delete your account.
+				</p>
+
+				<div class="mt-6">
+					<InputLabel for="password" value="Password" classes="sr-only" />
+
+					<TextInput
+							id="password"
+							bind:value={$form.password}
+							type="password"
+							classes="mt-1 block w-3/4"
+							placeholder="Password"
+							on:keyup.enter={deleteUser}
+					/>
+
+					<InputError message={$form.errors.password} />
+				</div>
+
+				<div class="mt-6 flex justify-end">
+					<SecondaryButton onClick={closeModal}>Cancel</SecondaryButton>
+
+					<DangerButton
+							disabled={$form.processing}
+							onClick={deleteUser}
+							classes="ml-3"
+					>
+						Delete Account
+					</DangerButton>
+				</div>
+			</div>
+		</Modal>
 
 		<!-- Page Heading -->
 		{#if $$slots.header}

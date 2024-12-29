@@ -7,7 +7,6 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class SwitchEntity implements SwitchEntityContract
 {
-
     public function execute(Authenticatable $user, int $entityId): bool
     {
         $user->current_entity_id = $entityId;

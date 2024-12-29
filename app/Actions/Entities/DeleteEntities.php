@@ -8,14 +8,10 @@ use App\Models\User;
 
 class DeleteEntities implements DeleteEntitiesContract
 {
-
     /**
      * Delete the entity
-     *
-     * @param int $entityId
-     * @return bool|null
      */
-    public function execute(int $entityId): bool|null
+    public function execute(int $entityId): ?bool
     {
         $entity = Entity::findOrFail($entityId);
 

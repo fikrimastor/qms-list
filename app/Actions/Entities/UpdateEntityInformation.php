@@ -4,7 +4,6 @@ namespace App\Actions\Entities;
 
 use App\Contracts\Entities\UpdateEntityContract;
 use App\Models\Entity;
-use Illuminate\Support\Facades\Validator;
 
 class UpdateEntityInformation implements UpdateEntityContract
 {

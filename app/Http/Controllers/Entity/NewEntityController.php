@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Entity;
 use App\Contracts\Entities\CreateNewEntityContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Entity\StoreEntityRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Http\{RedirectResponse, Request};
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -14,9 +15,6 @@ class NewEntityController extends Controller
 {
     /**
      * Display the new entity view.
-     *
-     * @param  Request  $request
-     * @return Response
      */
     public function create(Request $request): Response
     {
@@ -27,11 +25,8 @@ class NewEntityController extends Controller
 
     /**
      * Handle an incoming create new entity request.
-     * @throws ValidationException
      *
-     * @param  StoreEntityRequest  $request
-     * @param  CreateNewEntityContract  $adapter
-     * @return RedirectResponse
+     * @throws ValidationException
      */
     public function store(StoreEntityRequest $request, CreateNewEntityContract $adapter): RedirectResponse
     {

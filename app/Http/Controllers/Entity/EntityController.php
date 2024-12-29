@@ -9,7 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Entity\UpdateEntityRequest;
 use App\Models\Entity;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\{RedirectResponse, Request, Response as ResponseAlias};
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response as ResponseAlias;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -19,8 +21,6 @@ class EntityController extends Controller
      * Handle display edit entity view.
      *
      * @throws AuthorizationException
-     * @param  Request  $request
-     * @return Response
      */
     public function edit(Request $request): Response
     {
@@ -37,11 +37,6 @@ class EntityController extends Controller
 
     /**
      * Handle update entity request.
-     *
-     * @param  UpdateEntityRequest  $request
-     * @param  Entity  $entity
-     * @param  UpdateEntityContract  $executor
-     * @return RedirectResponse
      */
     public function update(UpdateEntityRequest $request, Entity $entity, UpdateEntityContract $executor): RedirectResponse
     {
@@ -54,11 +49,6 @@ class EntityController extends Controller
 
     /**
      * Handle switch entity request.
-     *
-     * @param  Request  $request
-     * @param  Entity  $entity
-     * @param  SwitchEntityContract  $executor
-     * @return RedirectResponse
      */
     public function switch(Request $request, Entity $entity, SwitchEntityContract $executor): RedirectResponse
     {
@@ -71,11 +61,6 @@ class EntityController extends Controller
 
     /**
      * Handle delete entity request.
-     *
-     * @param  Request  $request
-     * @param  Entity  $entity
-     * @param  DeleteEntitiesContract  $executor
-     * @return RedirectResponse
      */
     public function destroy(Request $request, Entity $entity, DeleteEntitiesContract $executor): RedirectResponse
     {

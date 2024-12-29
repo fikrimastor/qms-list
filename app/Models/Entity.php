@@ -2,28 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Entity extends Model
 {
+    use HasFactory, SoftDeletes;
+
     protected $table = 'entities';
 
     protected $fillable = [
         'user_id',
         'name',
         'description',
-        'image',
-        'status',
-        'type',
-        'created_by',
-        'updated_by',
-        'created_at',
-        'updated_at',
     ];
 
-    public function user(): BelongsTo
+    /**
+     * Get the user that owns the entity.
+     */
+    public function users(): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'user_entity', 'entity_id', 'user_id');
     }
 }

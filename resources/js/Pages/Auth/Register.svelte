@@ -42,7 +42,7 @@
 					id="name"
 					type="text"
 					class="mt-1 block w-full"
-					value={form.name}
+					value={$form.name}
 					required
 					autofocus
 					autocomplete="name"
@@ -56,7 +56,7 @@
 					id="email"
 					type="email"
 					class="mt-1 block w-full"
-					value={form.email}
+					value={$form.email}
 					required
 					autocomplete="username"
 					on:input={(evt) => ($form.email = evt.detail)}
@@ -69,7 +69,7 @@
 					id="password"
 					type="password"
 					class="mt-1 block w-full"
-					value={form.password}
+					value={$form.password}
 					required
 					autocomplete="new-password"
 					on:input={(evt) => ($form.password = evt.detail)}
@@ -82,7 +82,7 @@
 					id="password_confirmation"
 					type="password"
 					class="mt-1 block w-full"
-					value={form.password_confirmation}
+					value={$form.password_confirmation}
 					required
 					autocomplete="new-password"
 					on:input={(evt) => ($form.password_confirmation = evt.detail)}
@@ -93,15 +93,15 @@
 			<a
 					href="/login"
 					use:inertia
-					class="underline text-sm text-gray-600 hover:text-gray-900"
+					class="underline text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
 			>
 				Already registered?
 			</a>
 
 			<BreezeButton
 					class="ml-4"
-					xclass:opacity-25={form.processing}
-					disabled={form.processing}
+					xclass:opacity-25={$form.processing}
+					disabled={$form.processing}
 			>
 				Register
 			</BreezeButton>

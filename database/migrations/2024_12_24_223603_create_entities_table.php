@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('entities', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description')->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedBigInteger('current_entity_id')->after('password')->nullable();
+
+            $table->softDeletes();
         });
     }
 
@@ -22,6 +32,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['current_entity_id', 'deleted_at']);
+        });
+
         Schema::dropIfExists('entities');
     }
 };

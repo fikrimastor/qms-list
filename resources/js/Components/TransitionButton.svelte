@@ -6,7 +6,7 @@
 	/** @disabled {{ visible: boolean }} */
 	/** @disabled {{ disabled: boolean }} */
 	/** @buttonLabel {{ buttonLabel: string }} */
-	let { text = '', disabled = false, buttonLabel = 'Save', visible = false } = $props();
+	let { text = '', disabled = false, buttonLabel = 'Save', visible = false, status = false } = $props();
 </script>
 
 <PrimaryButton disabled={ disabled }>{ buttonLabel }</PrimaryButton>

@@ -12,13 +12,7 @@
 
 	let confirmingUserDeletion = false;
 
-	export let
-			status,
-			statusMessage = "{{ __('passwords.updated') }}",
-			classes = "",
-			passwordInput,
-			confirmPasswordInput,
-			currentPasswordInput;
+	export let classes = "";
 
 	const user = $page.props.auth.user;
 

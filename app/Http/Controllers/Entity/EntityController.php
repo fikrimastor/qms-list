@@ -27,7 +27,7 @@ class EntityController extends Controller
     public function update(Request $request, Entity $entity): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:entities,name,' . $entity->id,
+            'name' => 'required|string|max:255|unique:entities,name,'.$entity->id,
             'description' => 'nullable|string|max:255',
         ]);
 

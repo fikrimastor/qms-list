@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Users;
+namespace App\Actions\Entities;
 
 use App\Contracts\Entities\AssignUserToEntityContract;
 use App\Models\Entity;

@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Actions\Users;
+namespace App\Actions\Entities;
 
 use App\Contracts\Entities\UpdateEntityContract;
 use App\Models\Entity;
+use Illuminate\Support\Facades\Validator;
 
 class UpdateEntityInformation implements UpdateEntityContract
 {
     public function execute(int $entityId, array $entityData): bool
     {
-        // TODO: Implement execute() method.
-
-        return Entity::firstOrFail($entityId)->update($entityData);
+        return Entity::findOrFail($entityId)->update($entityData);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Entity;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -36,6 +37,11 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $user,
+                'permissions' => [
+                    'entity' => [
+                        'create' => $user?->can('create', Entity::class),
+                    ],
+                ],
             ],
             'currentEntity' => $user?->currentEntity,
             'entities' => $user?->entities,

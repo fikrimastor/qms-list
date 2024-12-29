@@ -11,7 +11,7 @@ class UpdateEntityRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check() && auth()->user()?->can('update', $this->entity);
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateEntityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255|unique:entities,name,' . $this->entity?->id,
+            'description' => 'nullable|string|max:255',
         ];
     }
 }

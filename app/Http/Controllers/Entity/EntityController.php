@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Entity;
 
 use App\Http\Controllers\Controller;
 use App\Models\Entity;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,32 +18,38 @@ class EntityController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('Entity/EditEntity', [
-            'email' => $request->email,
-            'token' => $request->route('token'),
+        return Inertia::render('Entity/Edit', [
+            'currentEntity' => Inertia::always(fn () => $request->user()->currentEntity),
+            'title' => __('entity.edit_entity'),
         ]);
     }
 
-    public function update(Request $request): Response
+    public function update(Request $request, Entity $entity): RedirectResponse
     {
-        return Inertia::render('Entity/UpdateEntity', [
-            'email' => $request->email,
-            'token' => $request->route('token'),
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:entities,name,' . $entity->id,
+            'description' => 'nullable|string|max:255',
         ]);
+
+        $entity->update($validated);
+
+        return back();
     }
 
-    public function switch(Request $request, Entity $entity): \Symfony\Component\HttpFoundation\Response
+    public function switch(Request $request, Entity $entity): RedirectResponse
     {
         $user = $request->user();
 
         $user->current_entity_id = $entity->id;
         $user->save();
 
-        //        $request->session()->previousUrl();
+        return redirect()->route('entity.edit', compact('entity'));
+    }
 
-        //        return redirect($request->session()->previousUrl())->with('status', 'Current entity updated.');
+    public function destroy(Entity $entity): RedirectResponse
+    {
+        $entity->delete();
 
-        return back()->with('status', 'Current entity updated.');
-        //        return Inertia::location($request->session()->previousUrl());
+        return to_route('dashboard');
     }
 }

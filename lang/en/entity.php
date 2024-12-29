@@ -6,6 +6,7 @@ return [
     'create_entity' => 'Create Entity',
     'create_entity_description' => 'Ensure your entity name is unique across platform.',
     'edit_entity' => 'Edit Entity',
+    'edit_updated' => 'Entity updated successfully.',
     'entity_name' => 'Entity Name',
     'entity_description' => 'Entity Description',
     'entity_created' => 'Entity :Name created successfully.',

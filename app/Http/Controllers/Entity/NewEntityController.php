@@ -33,6 +33,6 @@ class NewEntityController extends Controller
 
         $entity = $adapter->execute($request->user(), $validated);
 
-        return back()->with('message', __('entity.entity_created', ['name' => $entity->name]));
+        return to_route('entity.edit', compact('entity'))->with('status', __('entity.entity_created', ['name' => $entity->name]));
     }
 }

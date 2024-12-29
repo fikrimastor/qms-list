@@ -12,6 +12,10 @@ class UserCreateNewEntity implements CreateNewEntityContract
     {
         $user->entities()->attach($entity = Entity::create($entityData));
 
+        $user->current_entity_id = $entity->id;
+
+        $user->save();
+
         return $entity;
     }
 }

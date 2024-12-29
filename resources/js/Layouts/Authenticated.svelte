@@ -4,13 +4,12 @@
 	import BreezeDropdownLink from "@/Components/DropdownLink.svelte";
 	import BreezeNavLink from "@/Components/NavLink.svelte";
 	import BreezeResponsiveNavLink from "@/Components/ResponsiveNavLink.svelte";
-	import { inertia, page, Link, useForm } from "@inertiajs/svelte";
+	import {inertia, page, Link, useForm, router} from "@inertiajs/svelte";
 	import { __ } from 'laravel-translator';
 	export let
 		user = $page.props.auth.user,
 		showingNavigationDropdown = false,
-		confirmingEntityCreation = false,
-		status;
+		confirmingEntityCreation = false;
 
 	const form = useForm({
 		password: '',
@@ -99,16 +98,29 @@
                                 </span>
 								<div slot="content">
 									{#if $page.props.entities.length > 0}
-										{#each $page.props.entities as entity}
-											<BreezeDropdownLink
-													href="{ route('entity.switch', { entity: entity.id }) }"
-													method="patch"
-													as="button"
-													type="button"
-											>
-												{ entity.name }
-											</BreezeDropdownLink>
-										{/each}
+										{#if $page.props.currentEntity !== null}
+											<div>
+												<BreezeDropdownLink
+														href="{ route('entity.edit', {entity: $page.props.currentEntity.id}) }"
+
+												>
+													{ __('entity.edit_entity') }
+												</BreezeDropdownLink>
+											</div>
+										{/if}
+										<div>
+											<span class="dark:text-gray-400 text-sm ml-2">Switch Entities</span>
+											{#each $page.props.entities as entity}
+												<BreezeDropdownLink
+														href="{ route('entity.switch', { entity: entity.id }) }"
+														method="patch"
+														as="button"
+														type="button"
+												>
+													{ entity.name }
+												</BreezeDropdownLink>
+											{/each}
+										</div>
 									{:else}
 										No Entity Available
 									{/if}

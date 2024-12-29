@@ -5,34 +5,35 @@ import TransitionButton from "@/Components/TransitionButton.svelte";
 import InputError from "@/Components/Error.svelte";
 import TextInput from "@/Components/Input.svelte";
 import InputLabel from "@/Components/Label.svelte";
-import { page, Link, useForm } from "@inertiajs/svelte";
+import { useForm } from "@inertiajs/svelte";
 
 let err = {};
-export let errors = {};
-
-const entity = $page.props.entity;
-
-console.log(entity);
+export let errors = {}, classes, currentEntity, status;
 
 const form = useForm({
-	name: '',
-	description: '',
+	name: currentEntity.name,
+	description: currentEntity.description,
 });
+
+$: if (currentEntity) {
+	$form.name = currentEntity.name;
+	$form.description = currentEntity.description;
+}
 
 function submit(e) {
 	e.preventDefault();
-	$form.patch(route('profile.update'));
+	$form.patch(route('entity.update', currentEntity.id));
 }
 </script>
 
 <section class={classes}>
 	<header>
 		<h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-			Profile Information
+			Update Entity Information
 		</h2>
 
 		<p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-			Update your account's profile information and email address.
+			Update your entity's profile information.
 		</p>
 	</header>
 
@@ -57,47 +58,22 @@ function submit(e) {
 		</div>
 
 		<div>
-			<InputLabel for="email" value="Email" />
+			<InputLabel for="description" value="Description" />
 
 			<TextInput
-					id="email"
-					type="email"
+					id="description"
+					type="text"
 					classes="mt-1 block w-full"
-					bind:value={$form.email}
+					bind:value={$form.description}
 					required
 					autocomplete="username"
 			/>
 
-			<InputError message={$form.errors.email} />
+			<InputError message={$form.errors.description} />
 		</div>
 
-		{#if mustVerifyEmail && user.email_verified_at === null}
-			<div>
-				<p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
-					Your email address is unverified.
-					<Link
-							href={route("verification.send")}
-							method="post"
-							as="button"
-							class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-					>
-						Click here to re-send the verification email.
-					</Link>
-				</p>
-
-				{#if status === "verification-link-sent"}
-					<div
-							class="mt-2 font-medium text-sm text-green-600 dark:text-green-400"
-					>
-						A new verification link has been sent to your email
-						address.
-					</div>
-				{/if}
-			</div>
-		{/if}
-
 		<div class="flex items-center gap-4">
-			<TransitionButton disabled={$form.processing} buttonLabel="Save" visible={$form.recentlySuccessful} text="{ __('auth.profile_updated') }" />
+			<TransitionButton disabled={$form.processing} buttonLabel="Save" visible={$form.recentlySuccessful} text="{ __('entity.edit_updated') }" />
 		</div>
 	</form>
 </section>

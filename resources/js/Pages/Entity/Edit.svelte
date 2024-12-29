@@ -2,8 +2,9 @@
 
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.svelte";
 import UpdateEntityInformation from "@/Pages/Entity/Partials/UpdateEntityInformation.svelte";
+import DeleteEntityForm from "@/Pages/Entity/Partials/DeleteEntityForm.svelte";
 
-export let title, status;
+export let title, status, currentEntity;
 
 </script>
 
@@ -24,9 +25,21 @@ export let title, status;
 				<UpdateEntityInformation
 						class="max-w-xl"
 						status="{status}"
+						currentEntity="{currentEntity}"
+
 				/>
 			</div>
 
+			<div
+					class="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800"
+			>
+				<DeleteEntityForm
+						class="max-w-xl"
+						status="{status}"
+						currentEntity="{currentEntity}"
+
+				/>
+			</div>
 		</div>
 	</div>
 </BreezeAuthenticatedLayout>

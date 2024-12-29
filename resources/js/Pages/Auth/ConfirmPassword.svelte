@@ -34,7 +34,7 @@
 					id="password"
 					type="password"
 					class="mt-1 block w-full"
-					value={form.password}
+					value={$form.password}
 					required
 					autocomplete="current-password"
 					autofocus
@@ -45,8 +45,7 @@
 		<div class="flex justify-end mt-4">
 			<BreezeButton
 					class="ml-4"
-					xclass:opacity-25={form.processing}
-					disabled={form.processing}
+					disabled={$form.processing}
 			>
 				Confirm
 			</BreezeButton>

@@ -20,9 +20,10 @@ Route::group([
     Route::group([
         'controller' => EntityController::class,
     ], function () {
-        Route::get('edit', 'edit')->name('edit');
-        Route::patch('update', 'update')->name('update');
+        Route::get('edit/{entity}', 'edit')->name('edit');
+        Route::patch('update/{entity}', 'update')->name('update');
         Route::patch('switch/{entity}', 'switch')->name('switch');
+        Route::delete('delete/{entity}', 'destroy')->name('delete');
     });
 
     Route::group([

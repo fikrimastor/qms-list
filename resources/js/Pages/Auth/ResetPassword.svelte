@@ -39,7 +39,7 @@
 					id="email"
 					type="email"
 					class="mt-1 block w-full"
-					value={form.email}
+					value={$form.email}
 					required
 					autofocus
 					autocomplete="username"
@@ -53,7 +53,7 @@
 					id="password"
 					type="password"
 					class="mt-1 block w-full"
-					value={form.password}
+					value={$form.password}
 					required
 					autocomplete="new-password"
 					on:input={(evt) => ($form.password = evt.detail)}
@@ -66,7 +66,7 @@
 					id="password_confirmation"
 					type="password"
 					class="mt-1 block w-full"
-					value={form.password_confirmation}
+					value={$form.password_confirmation}
 					required
 					autocomplete="new-password"
 					on:input={(evt) => ($form.password_confirmation = evt.detail)}
@@ -75,8 +75,7 @@
 
 		<div class="flex items-center justify-end mt-4">
 			<BreezeButton
-					xclass:opacity-25={form.processing}
-					disabled={form.processing}
+					disabled={$form.processing}
 			>
 				Reset Password
 			</BreezeButton>

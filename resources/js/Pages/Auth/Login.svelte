@@ -71,7 +71,7 @@
 			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<label class="flex items-center">
 				<BreezeCheckbox name="remember" bind:checked={$form.remember} />
-				<span class="ml-2 text-sm text-gray-600">Remember me</span>
+				<span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
 			</label>
 		</div>
 
@@ -79,7 +79,7 @@
 			{#if canResetPassword}
 				<Link
 						href="{ route('password.request') }"
-						class="underline text-sm text-gray-600 hover:text-gray-900"
+						class="underline text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
 				>
 					Forgot your password?
 				</Link>
@@ -87,7 +87,6 @@
 
 			<BreezeButton
 					class="ml-4"
-					sclass:opacity-25={$form.processing}
 					disabled={$form.processing}
 			>
 				Log in

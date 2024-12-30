@@ -14,18 +14,27 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::group(['controller' => \App\Http\Controllers\AppController::class], function () {
-    Route::get('/about', 'about')->name('about');
-});
-
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard', fn() => Inertia::render('Dashboard'))
+        ->middleware('verified')
+        ->name('dashboard');
+
+    Route::group([
+        'controller' => \App\Http\Controllers\AppController::class,
+        'middleware' => 'verified',
+    ], function () {
+        Route::get('/about', 'about')->name('about');
+    });
+
+    Route::group([
+        'controller' => ProfileController::class,
+        'as' => 'profile.',
+        'middleware' => 'verified',
+    ], function (){
+        Route::get('/profile', 'edit')->name('edit');
+        Route::patch('/profile/update', 'update')->name('update');
+        Route::delete('/profile', 'destroy')->name('destroy');
+    });
 });
 
 require __DIR__.'/auth.php';

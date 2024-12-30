@@ -15,7 +15,7 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', fn() => Inertia::render('Dashboard'))
+    Route::get('/dashboard', fn () => Inertia::render('Dashboard'))
         ->middleware('verified')
         ->name('dashboard');
 
@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
         'controller' => ProfileController::class,
         'as' => 'profile.',
         'middleware' => 'verified',
-    ], function (){
+    ], function () {
         Route::get('/profile', 'edit')->name('edit');
         Route::patch('/profile/update', 'update')->name('update');
         Route::delete('/profile', 'destroy')->name('destroy');
